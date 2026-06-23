@@ -1700,6 +1700,11 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  if (pathname === "/healthz") {
+    jsonResponse(res, 200, { ok: true, roomId: room.id, phase: room.phase });
+    return;
+  }
+
   if (pathname === "/") {
     serveStaticFile(res, path.join(PUBLIC_DIR, "index.html"));
     return;

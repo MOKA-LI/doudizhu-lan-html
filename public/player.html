@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>斗地主玩家端</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="player-body theme-battle">
+    <div class="scene-backdrop"></div>
+
+    <div class="player-match-ui">
+      <section id="joinPanel" class="join-panel floating-join">
+        <div class="panel-title">加入房间</div>
+        <label class="field">
+          <span>昵称</span>
+          <input id="nameInput" type="text" maxlength="12" placeholder="输入玩家昵称" />
+        </label>
+        <div class="seat-picker">
+          <button data-seat="0" class="seat-pick">座位 1</button>
+          <button data-seat="1" class="seat-pick">座位 2</button>
+          <button data-seat="2" class="seat-pick">座位 3</button>
+        </div>
+        <button id="joinBtn" class="primary-btn full">加入所选座位</button>
+      </section>
+
+      <header class="match-topbar">
+        <div class="topbar-left">
+          <div class="eyebrow">PLAYER VIEW</div>
+          <div id="playerRoomMeta" class="topbar-room">连接中</div>
+        </div>
+        <div class="topbar-center">
+          <div id="miniTableSummary" class="desk-meta">等待同步</div>
+          <div id="playerTurnText" class="turn-pill">等待同步</div>
+        </div>
+        <div class="topbar-right">
+          <button id="playerAudioToggleBtn" class="top-icon-btn">音效</button>
+          <button class="top-icon-btn" data-open-modal="tableModal">牌桌</button>
+          <button class="top-icon-btn" data-open-modal="opponentModal">对手</button>
+          <button class="top-icon-btn" data-open-modal="logModal">菜单</button>
+          <button id="leaveBtn" class="top-icon-btn">离开</button>
+        </div>
+      </header>
+
+      <main class="match-board">
+        <div class="opponent-panel opponent-left">
+          <div class="opponent-avatar">左</div>
+          <div id="leftOpponentCard" class="opponent-chip">等待对手</div>
+        </div>
+
+        <section class="desk-center">
+          <div class="desk-head">
+            <div id="comboTypePill" class="desk-badge">桌面待命</div>
+            <div id="playerComboOwner" class="desk-owner">等待出牌</div>
+            <div class="desk-multiplier">经典对局</div>
+          </div>
+
+          <div id="playerComboCards" class="played-strip player-played"></div>
+
+          <div class="control-ribbon">
+            <div class="utility-row">
+              <button id="readyBtn" class="small-action">准备</button>
+              <button id="startRoundBtn" class="small-action">开始</button>
+              <button id="nextRoundBtn" class="small-action">下一局</button>
+            </div>
+            <div class="bid-row">
+              <button id="bid0Btn" class="small-action">不叫</button>
+              <button id="bid1Btn" class="small-action">1 分</button>
+              <button id="bid2Btn" class="small-action">2 分</button>
+              <button id="bid3Btn" class="small-action">3 分</button>
+            </div>
+            <div class="action-row-center">
+              <button id="passBtn" class="main-action action-pass">不出</button>
+              <button id="hintBtn" class="main-action action-hint">提示</button>
+              <button id="playBtn" class="main-action action-play">出牌</button>
+            </div>
+          </div>
+        </section>
+
+        <div class="opponent-panel opponent-right">
+          <div class="opponent-avatar">右</div>
+          <div id="rightOpponentCard" class="opponent-chip">等待对手</div>
+        </div>
+      </main>
+
+      <footer class="hand-zone">
+        <div class="hand-topline">
+          <div class="hand-me">
+            <div id="mySeatSummary" class="me-summary">未加入座位</div>
+          </div>
+          <div class="hand-tools">
+            <div id="selectedSummary" class="selected-pill">已选 0 张</div>
+            <details class="table-fold">
+              <summary>更多</summary>
+              <div class="table-fold-body">
+                <div class="mini-label">底牌</div>
+                <div id="playerBottomCards" class="card-strip small compact-overlap"></div>
+              </div>
+            </details>
+          </div>
+        </div>
+        <div id="myHand" class="player-hand-row"></div>
+      </footer>
+    </div>
+
+    <div id="tableModal" class="sheet-modal hidden">
+      <div class="sheet-backdrop" data-close-modal></div>
+      <div class="sheet-panel modal-skin">
+        <div class="sheet-header">
+          <strong>牌桌信息</strong>
+          <button class="top-icon-btn" data-close-modal>关闭</button>
+        </div>
+        <div id="modalTableMeta" class="meta-line">等待同步</div>
+        <div id="modalTableTurn" class="focus-line">等待同步</div>
+        <div class="sheet-block">
+          <div class="mini-label">当前牌面</div>
+          <div id="modalTableComboOwner" class="desk-owner">等待出牌</div>
+          <div id="modalTableCards" class="played-strip compact-played"></div>
+        </div>
+        <div class="sheet-block">
+          <div class="mini-label">底牌</div>
+          <div id="modalBottomCards" class="card-strip small compact-overlap"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="opponentModal" class="sheet-modal hidden">
+      <div class="sheet-backdrop" data-close-modal></div>
+      <div class="sheet-panel modal-skin">
+        <div class="sheet-header">
+          <strong>对手信息</strong>
+          <button class="top-icon-btn" data-close-modal>关闭</button>
+        </div>
+        <div id="opponentSeats" class="opponent-list"></div>
+      </div>
+    </div>
+
+    <div id="logModal" class="sheet-modal hidden">
+      <div class="sheet-backdrop" data-close-modal></div>
+      <div class="sheet-panel modal-skin">
+        <div class="sheet-header">
+          <strong>战局播报</strong>
+          <button class="top-icon-btn" data-close-modal>关闭</button>
+        </div>
+        <div id="playerLogList" class="log-list small-log"></div>
+      </div>
+    </div>
+
+    <script src="/audio.js"></script>
+    <script src="/player.js"></script>
+  </body>
+</html>

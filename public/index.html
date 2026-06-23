@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>斗地主公屏</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="screen-body theme-battle">
+    <div class="scene-backdrop"></div>
+
+    <div class="screen-match-ui">
+      <header class="screen-topbar">
+        <div class="screen-top-left">
+          <div class="screen-room-chip">
+            <span class="tiny-label">PUBLIC</span>
+            <strong id="roomMetaMini">斗地主</strong>
+          </div>
+          <div id="roomMeta" class="top-room-meta">房间初始化中</div>
+        </div>
+        <div class="screen-top-center">
+          <div class="tiny-label">对局状态</div>
+          <div id="turnBanner" class="turn-pill">等待玩家加入</div>
+          <div class="top-status-inline">
+            <span id="phaseMirror">待机</span>
+            <span id="timerText">-</span>
+          </div>
+        </div>
+        <div class="screen-state-strip">
+          <button id="startBtn" class="screen-ctl-btn primary-btn">开始</button>
+          <button id="nextBtn" class="screen-ctl-btn secondary-btn">下一局</button>
+          <button id="resetBtn" class="screen-ctl-btn secondary-btn">重置</button>
+          <button id="audioToggleBtn" class="screen-ctl-btn secondary-btn">音效</button>
+          <div class="state-node">
+            <span>底分</span>
+            <strong id="baseBidText">1</strong>
+          </div>
+          <div class="state-node">
+            <span>倍数</span>
+            <strong id="multiplierText">x1</strong>
+          </div>
+          <div class="state-node">
+            <span>阶段</span>
+            <strong id="phaseText">待机</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="qr-dock">
+        <div class="tiny-label">扫码加入</div>
+        <img id="qrImage" alt="扫码加入房间" />
+        <a id="joinLink" href="#" target="_blank" rel="noreferrer">手机加入</a>
+      </section>
+
+      <aside class="score-dock">
+        <div class="tiny-label">调分记录</div>
+        <div id="bidHistory" class="bid-history compact-bid-history"></div>
+      </aside>
+
+      <main class="screen-board">
+        <div class="screen-watermark">
+          <span class="watermark-top">DOU DIZHU</span>
+          <strong>欢乐对局</strong>
+        </div>
+
+        <section class="center-combo-stage">
+          <div class="combo-stage-head">
+            <span class="tiny-label">当前出牌</span>
+            <div id="currentComboOwner" class="desk-owner">等待出牌</div>
+          </div>
+          <div id="currentComboCards" class="played-strip public-played current-played"></div>
+        </section>
+
+        <div class="screen-opponent top-opponent">
+          <div id="seat1" class="screen-seat-chip"></div>
+        </div>
+
+        <div class="screen-opponent left-opponent">
+          <div id="seat2" class="screen-seat-chip"></div>
+        </div>
+
+        <div class="screen-opponent right-opponent">
+          <div id="seat0" class="screen-seat-chip"></div>
+        </div>
+      </main>
+
+      <aside class="battle-log-dock top-left-dock">
+        <div class="dock-head">
+          <span class="tiny-label">战局播报</span>
+        </div>
+        <div id="logList" class="log-list ticker-log"></div>
+      </aside>
+
+      <footer class="screen-play-zone">
+        <div class="screen-bottom-grid">
+          <section class="bottom-panel archive-panel">
+            <div class="play-zone-head">
+              <div class="desk-caption">
+                <span class="tiny-label">上一手牌</span>
+                <div id="comboOwner" class="desk-owner archive-owner">等待下一手</div>
+              </div>
+            </div>
+            <div id="comboCards" class="played-strip archive-played"></div>
+          </section>
+          <section class="bottom-panel cards-panel">
+            <div class="tiny-label">底牌</div>
+            <div id="bottomCards" class="card-strip small compact-overlap bottom-cards-strip"></div>
+          </section>
+        </div>
+      </footer>
+    </div>
+
+    <script src="/audio.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>

@@ -3,7 +3,7 @@ services:
     name: doudizhu-lan-html
     runtime: node
     plan: free
-    autoDeploy: true
+    autoDeployTrigger: commit
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /healthz

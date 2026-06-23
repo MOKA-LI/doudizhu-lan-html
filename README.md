@@ -53,6 +53,8 @@
 - `render.yaml`
 - `/healthz` 健康检查接口
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/MOKA-LI/doudizhu-lan-html)
+
 在 Render 上部署时：
 
 1. 选择 `New +`
